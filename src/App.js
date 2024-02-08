@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react'
+import { Routes, Route } from "react-router-dom";
+import Home from './screens/Home'
+import Login from './screens/Login';
+import "../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css"
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle"
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+import Register from './screens/Register.js';
+import CartProvider from './components/ContextReducer.js';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import MyCart from './components/MyCart.js';
 
-function App() {
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <CartProvider>
+        <Fragment>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/cart' element={<MyCart />} />
+          </Routes>
+        </Fragment>
+      </CartProvider>
+    </Provider>
+
+
+
+  )
 }
 
-export default App;
+export default App
