@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from 'react-hot-toast';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -11,22 +13,27 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:5000/api/login', { email, password });
+            const { data } = await axios.post('http://localhost:5000/api/login',
+                { email, password });
             if (data.success) {
-                //toast.success("User Register Successfully");
+                toast.success(data.message);
                 localStorage.setItem("token", data.token);
                 //console.log(localStorage.getItem("token"));
                 navigate("/");
-
+            } else {
+                toast.error(data.message);
             }
+
         } catch (error) {
-            console.log(error);
+            toast.error("Invalid Email Or Password")
         }
     }
     return (
         <Fragment>
             <div className="container">
                 <form onSubmit={handleSubmit}>
+                    <h4 className='title'>LOGIN FORM</h4>
+                    <hr />
                     <div className="form-group">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" className="form-control" placeholder="Enter email" value={email}

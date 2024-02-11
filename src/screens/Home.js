@@ -48,6 +48,9 @@ const Home = () => {
                 <Navbar />
             </div>
             <div>
+                <div style={{ backgroundColor: "brown", color: "#fff", padding: "15px", marginTop: "3px" }}>
+                    <p style={{ fontWeight: "bold", fontSize: "40px" }}>"Food is like a language, it communicates so much."</p>
+                </div>
                 <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel" style={{ objectFit: "contain !important" }}>
                     <div className="carousel-inner" id='carousel'>
                         <div className="carousel-caption" style={{ zIndex: "10" }}>
@@ -133,7 +136,7 @@ const Home = () => {
             <div>
                 <Footer />
             </div>
-        </div>
+        </div >
     )
 }
 

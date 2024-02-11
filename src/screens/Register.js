@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -15,17 +16,21 @@ const Register = () => {
         try {
             const { data } = await axios.post('http://localhost:5000/api/register', { name, email, password, location });
             if (data.success) {
-                //toast.success("User Register Successfully");
+                toast.success(data.message);
                 navigate("/login");
+            } else {
+                toast.error(data.message);
             }
         } catch (error) {
-            console.log(error);
+            toast.error("Something went wrong")
         }
     }
     return (
         <Fragment>
             <div className="container">
                 <form onSubmit={handleSubmit}>
+                    <h4 className='title'>REGISTER FORM</h4>
+                    <hr />
                     <div className="form-group">
                         <label for="exampleInputname">Name</label>
                         <input type="text" className="form-control" placeholder="Enter Your Name" value={name}

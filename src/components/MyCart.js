@@ -3,56 +3,33 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux'
 import { addToCart, removeCart } from '../redux/cardSlice';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 const MyCart = () => {
     const cart = useSelector((store) => store.cart.cartArray);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
 
-    const data = JSON.parse(window.localStorage.getItem('cart') || '[]');
-    { data && dispatch(addToCart(localStorage.getItem(cart))) }
+    // const data = JSON.parse(window.localStorage.getItem('cart') || '[]');
+    // { data && dispatch(addToCart(localStorage.getItem(cart))) }
 
     useEffect(() => {
         window.localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
-
-    // useEffect(() => {
-    //     const storedCart = localStorage.getItem('cart');
-    //     const data = JSON.parse(storedCart);
-    //     console.log(data);
-    //     dispatch(addToCart(data));
-    //     // if (storedCart) {
-    //     //   dispatch({ type: 'cart/setCart', payload: JSON.parse(storedCart) });
-    //     // }
-    // }, []);
-
-
-    const handleBack = () => {
-        navigate("/")
-    }
-
-
-    // dispatch(addToCart({
-    //     id: foodItem._id,
-    //     name: foodItem.name,
-    //     price: finalPrice,
-    //     img: foodItem.img,
-    //     qty: qty,
-    //     size: size
-    // }));
-    //console.log(cart);
-
-
-
-
-
     return (
         <div className='mt-5'>
-            <div className='d-flex gap-2'>
-                {cart.length != 0 && <button className="btn btn-primary " style={{ height: "40px", marginLeft: "50px", marginBottom: "40px" }} onClick={handleBack}>Go Back</button>}
+            <div className='d-flex flex-wrap gap-2'>
+                {cart.length != 0 && <Link className="btn btn-primary bg-white text-success" to="/"
+                    style={{
+                        height: "40px",
+                        marginLeft: "170px",
+                        marginBottom: "40px",
+                        position: "absolute",
+                        translate: "790%",
+                        zIndex: "50",
+                        top: "0",
+                        marginTop: "5px"
+                    }}>Home</Link>}
                 {cart && cart.map((item) => {
                     return <div className="card mt-3" style={{ width: "15rem" }}>
                         <img src={item.img}
@@ -70,15 +47,27 @@ const MyCart = () => {
                                 </div>
                                 <hr />
 
-                                <button className="btn btn-primary justify-center ms-2" onClick={() => dispatch(removeCart(item))}>RemoveItem</button>
+                                <button className="btn btn-primary justify-center ms-2"
+                                    onClick={() => dispatch(removeCart(item))}>Remove Item</button>
                             </div>
                         </div>
                     </div>
                 })}
                 {cart.length === 0 &&
-                    <button className="btn btn-primary " style={{ marginTop: "300px", marginLeft: "700px" }} onClick={handleBack}>Go Back</button>
+                    <Link className="btn btn-primary bg-white text-success" to="/"
+                        style={{
+                            marginTop: "300px",
+                            marginLeft: "700px"
+                        }}
+                    >Home</Link>
                 }
-                {cart.length === 0 && <div className="card-title fw-bold" style={{ fontSize: "50px", marginTop: "200px", position: "absolute", marginLeft: "570px" }} >No Cart Found</div>}
+                {cart.length === 0 && <div className="card-title fw-bold"
+                    style={{
+                        fontSize: "50px",
+                        marginTop: "200px",
+                        position: "absolute",
+                        marginLeft: "570px"
+                    }} >No Cart Found</div>}
             </div>
         </div>
     )

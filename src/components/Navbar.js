@@ -1,11 +1,17 @@
 import React from 'react'
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import Badge from 'react-bootstrap/Badge'
+import { useSelector } from 'react-redux';
+
 
 const Navbar = () => {
+    const cart = useSelector((store) => store.cart.cartArray);
     const navigate = useNavigate();
     const handleSubmit = () => {
         localStorage.removeItem("token");
-        navigate('/');
+        toast.success("User logout Successfully");
+        navigate('/login');
     }
     return (
         <div>
@@ -33,7 +39,9 @@ const Navbar = () => {
                             </div>
                             :
                             <div>
-                                <Link className="btn bg-white text-success mx-1" to="/cart">My Cart</Link>
+                                <Link className="btn bg-white text-success mx-2" to="/cart">My Cart {" "}
+                                    <Badge pill bg='danger' >{cart.length}</Badge>
+                                </Link>
                                 <div className="btn bg-white text-danger mx-1" onClick={handleSubmit}>Logout</div>
                             </div>
                         }

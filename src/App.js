@@ -10,6 +10,8 @@ import CartProvider from './components/ContextReducer.js';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import MyCart from './components/MyCart.js';
+import { Toaster } from "react-hot-toast";
+
 
 
 
@@ -18,6 +20,7 @@ const App = () => {
     <Provider store={store}>
       <CartProvider>
         <Fragment>
+          <Toaster />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />

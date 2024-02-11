@@ -51,14 +51,14 @@ router.post('/login', async (req, res) => {
         const { email, password } = req.body;
         //validation
         if (!email || !password) {
-            return res.status(401).send({
+            return res.status(404).send({
                 success: false,
-                message: "Please provide email or password",
+                message: "Invalid email or password",
             });
         }
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(200).send({
+            return res.status(404).send({
                 success: false,
                 message: "email is not registerd",
             });
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(401).send({
+            return res.status(200).send({
                 success: false,
                 message: "Invlid email or password",
             });
@@ -77,7 +77,7 @@ router.post('/login', async (req, res) => {
 
         return res.status(200).send({
             success: true,
-            messgae: "login successfully",
+            message: "login successfully",
             user,
             token
         });
@@ -85,7 +85,7 @@ router.post('/login', async (req, res) => {
         console.log(error);
         return res.status(500).send({
             success: false,
-            message: "Error In Login Callcback",
+            message: "Error In Login",
             error,
         });
     }
